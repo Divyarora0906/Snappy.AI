@@ -1,0 +1,58 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-background text-textMain antialiased selection:bg-primary/30;
+  }
+}
+
+/* Base custom font */
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+/* Use Space Grotesk for headings optionally by adding a utility or applying generally */
+h1, h2, h3, h4, .font-extrabold {
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+/* Fade in up animation */
+/* Custom background pattern from the image */
+.hero-gradient {
+  background: radial-gradient(circle at top center, rgba(59, 130, 246, 0.15) 0%, transparent 50%),
+              url('data:image/svg+xml;utf8,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="1" fill="rgba(255,255,255,0.05)"/></svg>');
+}
+@keyframes scrollUp {
+  0% {
+    transform: translateY(0%);
+  }
+  100% {
+    transform: translateY(-50%);
+  }
+}
+
+.animate-scroll {
+  animation: scrollUp 10s linear infinite;
+}
+.fade-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 20px;
+  width: 100%;
+  background: linear-gradient(to bottom, #0A0F1C, transparent);
+  z-index: 10;
+}
+
+.fade-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 20px;
+  width: 100%;
+  background: linear-gradient(to top, #0A0F1C, transparent);
+  z-index: 10;
+}

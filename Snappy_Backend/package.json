@@ -1,0 +1,21 @@
+{
+  "name": "backend_news",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@neondatabase/serverless": "^1.0.2",
+    "@openrouter/sdk": "^0.9.11",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.0",
+    "express": "^5.2.1",
+    "node-fetch": "^2.7.0",
+    "nodemon": "^3.1.14",
+    "rss-parser": "^3.13.0"
+  }
+}
