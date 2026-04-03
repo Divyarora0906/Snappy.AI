@@ -842,8 +842,12 @@ app.get("/api/news/regions", (req, res) => {
     })),
   });
 });
-
-app.post("/api/ask-news", askNews)
+const videoRoutes = require("./routes/videoRoutes");
+app.use("/api/videos", videoRoutes); // 🔥 FIX
+app.post("/api/ask-news", askNews);
+app.get("/health", (req, res) => {
+  res.json({ status: "Snappy backend running 🚀" });
+});
 
 app.listen(PORT, () => {
   console.log(`✓ Snappy backend running on http://localhost:${PORT}`);
