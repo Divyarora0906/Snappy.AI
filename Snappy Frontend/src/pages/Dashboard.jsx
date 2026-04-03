@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Sparkles,
   Bell,
@@ -16,135 +16,134 @@ import {
   BookOpen,
   AlertCircle,
 } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import UserCard from "../dashboard/UserCard";
 import WatchList from "../dashboard/WatchList";
 import UserBehaviour from "../components/UserBehaviour";
+import Skeleton from "../components/Skeleton";
 
 export default function Dashboard() {
   const navigate = useNavigate();
+  const today = new Date();
+
+  const formattedDate = today.toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
+
+  const [loading, setLoading] = useState(true);
 
   const handleNav = (path) => {
     navigate(path);
   };
 
-  const preventOuter = (e, path) => {
-    e.stopPropagation();
-    navigate(path);
-  };
+  useEffect(() => {
+    // simulate loading (replace with real logic later)
+    const timer = setTimeout(() => setLoading(false), 800);
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <div className="min-h-screen bg-[#05070E] text-slate-200 font-sans selection:bg-blue-500/30 overflow-x-hidden relative">
+      {/* Background Effects */}
       <div className="fixed top-[-10%] right-[10%] w-[40rem] h-[40rem] bg-indigo-600/10 rounded-full blur-[150px] pointer-events-none z-0"></div>
       <div className="fixed bottom-[-10%] left-[-10%] w-[50rem] h-[50rem] bg-blue-600/10 rounded-full blur-[180px] pointer-events-none z-0"></div>
       <div className="absolute top-0 left-0 right-0 h-40 bg-gradient-to-b from-[#0B152A] to-transparent pointer-events-none opacity-50 z-0"></div>
+
       <Header />
+
       <main className="max-w-[1400px] mx-auto px-6 py-10 relative z-10 w-full mb-10 animate-fade-in-up">
+        {/* Header Row */}
         <div className="flex items-center justify-between mb-8">
           <h1 className="text-3xl font-extrabold text-white tracking-tight flex items-center gap-3 drop-shadow-lg">
             Good morning,{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">
               User
-            </span>{" "}
+            </span>
             <span className="text-2xl hover:origin-bottom-right hover:rotate-12 transition-transform cursor-default">
               👋
             </span>
           </h1>
+
           <div
             className="hidden sm:flex items-center gap-2 bg-[#0B101E] border border-[#1e293b] px-4 py-2.5 rounded-xl shadow-lg hover:border-blue-500/30 transition-colors cursor-pointer"
             onClick={() => handleNav("/tracker")}
           >
             <CalendarIcon className="w-4 h-4 text-emerald-400" />
             <span className="text-xs font-bold text-slate-300">
-              Mar 19, 2026
+              {formattedDate}
             </span>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-          <div className="lg:col-span-3 space-y-6">
-            <UserCard />
-            <WatchList />
-          </div>
-          <UserBehaviour />
-          {/* RIGHT COLUMN: Alerts & Bookmarks (3 cols) */}
-          <div className="lg:col-span-3 space-y-6">
-            {/* Live Alerts */}
-          
-
-            {/* Bookmarked Reading */}
-            <div className="bg-[#090D1A]/90 backdrop-blur-2xl border border-white/10 shadow-2xl rounded-3xl p-6 hover:border-emerald-500/20 transition-colors">
-              <div
-                className="flex justify-between items-center mb-6 cursor-pointer group"
-                onClick={() => handleNav("/account")}
-              >
-                <h3 className="text-[11px] font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2 group-hover:text-emerald-400 transition-colors">
-                  <Bookmark className="w-4 h-4 text-emerald-400" /> Read Later
-                </h3>
-              </div>
-
-              <div className="space-y-5">
-                <div
-                  onClick={() => handleNav("/article")}
-                  className="flex gap-4 group cursor-pointer hover:bg-white/5 p-2 -mx-2 rounded-xl transition-all"
-                >
-                  <div className="w-16 h-16 rounded-xl overflow-hidden shrink-0 border border-white/5 relative shadow-sm">
-                    <img
-                      src="https://images.unsplash.com/photo-1620712948343-008423671236?auto=format&fit=crop&q=80&w=200"
-                      alt="Chip"
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                    />
-                    <div className="absolute inset-0 bg-[#0B101E]/40 group-hover:bg-transparent transition-colors"></div>
-                  </div>
-                  <div className="flex flex-col justify-center">
-                    <h4 className="text-[13px] font-bold text-white mb-1 group-hover:text-blue-400 transition-colors line-clamp-2 leading-tight">
-                      The architectural limits of GPT-5
-                    </h4>
-                    <span className="text-[10px] font-bold text-slate-500">
-                      12 MIN READ
-                    </span>
-                  </div>
-                </div>
-
-                <div
-                  onClick={() => handleNav("/article")}
-                  className="flex gap-4 group cursor-pointer hover:bg-white/5 p-2 -mx-2 rounded-xl transition-all"
-                >
-                  <div className="w-16 h-16 rounded-xl overflow-hidden shrink-0 border border-white/5 relative shadow-sm">
-                    <img
-                      src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&q=80&w=200"
-                      alt="Stocks"
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                    />
-                    <div className="absolute inset-0 bg-[#0B101E]/40 group-hover:bg-transparent transition-colors"></div>
-                  </div>
-                  <div className="flex flex-col justify-center">
-                    <h4 className="text-[13px] font-bold text-white mb-1 group-hover:text-emerald-400 transition-colors line-clamp-2 leading-tight">
-                      Venture Capital freezes amidst election
-                    </h4>
-                    <span className="text-[10px] font-bold text-slate-500">
-                      8 MIN READ
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              <button
-                onClick={() => handleNav("/explore")}
-                className="w-full mt-6 bg-[#12182A]/80 hover:bg-[#1a2333] border border-white/5 hover:border-emerald-500/30 py-2.5 rounded-xl text-xs font-bold text-slate-300 hover:text-emerald-400 transition-all shadow-sm"
-              >
-                Explore More Articles
-              </button>
+        {/* MAIN CONTENT */}
+        {loading ? (
+          <DashboardSkeleton />
+        ) : (
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            {/* LEFT SIDEBAR */}
+            <div className="lg:col-span-3 space-y-6">
+              <UserCard />
+              <WatchList />
             </div>
+
+            {/* RIGHT CONTENT */}
+            <UserBehaviour />
           </div>
-        </div>
+        )}
       </main>
+
       <Footer />
     </div>
   );
 }
+
+/* ================= Skeleton Layout ================= */
+
+const DashboardSkeleton = () => {
+  return (
+    <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+      {/* LEFT */}
+      <div className="lg:col-span-3 space-y-6">
+        {/* UserCard Skeleton */}
+        <div className="bg-[#090D1A]/90 border border-white/10 rounded-3xl p-6 space-y-4">
+          <Skeleton className="w-14 h-14 rounded-full" />
+          <Skeleton className="w-32 h-4 rounded" />
+          <Skeleton className="w-24 h-3 rounded" />
+          <div className="flex gap-2 mt-4">
+            <Skeleton className="w-16 h-6 rounded-lg" />
+            <Skeleton className="w-16 h-6 rounded-lg" />
+            <Skeleton className="w-16 h-6 rounded-lg" />
+          </div>
+        </div>
+
+        {/* WatchList Skeleton */}
+        <div className="bg-[#090D1A]/90 border border-white/10 rounded-3xl p-6 space-y-4">
+          <Skeleton className="w-32 h-4 rounded" />
+          <Skeleton className="w-full h-10 rounded-lg" />
+          <Skeleton className="w-full h-10 rounded-lg" />
+        </div>
+      </div>
+
+      {/* RIGHT */}
+      <div className="lg:col-span-9 space-y-6">
+        <div className="bg-[#090D1A]/90 border border-white/10 rounded-3xl p-8 space-y-6">
+          <Skeleton className="w-48 h-5 rounded" />
+          <Skeleton className="w-full h-16 rounded" />
+          <Skeleton className="w-full h-12 rounded" />
+          <Skeleton className="w-full h-12 rounded" />
+          <Skeleton className="w-full h-12 rounded" />
+          <Skeleton className="w-full h-10 rounded-xl" />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+/* ================= Calendar Icon ================= */
 
 const CalendarIcon = ({ className }) => (
   <svg
